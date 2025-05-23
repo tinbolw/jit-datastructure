@@ -5,8 +5,9 @@ package jit;
  */
 public class Jit<T> implements Comparable<Jit<T>> {
     private ListNode<T> front;
+    
     private boolean jat;
-    private TreeNode overallRoot;
+    private TreeNode<T> overallRoot;
 
     /**
      * Creates an empty Jit.
@@ -62,18 +63,26 @@ public class Jit<T> implements Comparable<Jit<T>> {
     }
 
     /*
-     * Somehow turn LinkedList into ternary Tree
-     * 1 -> 2 -> 3 -> 4 -> null;
+     * Turns the jit into a ternary jit.
      */
-    private TreeNode fentyLean(TreeNode node, ListNode<T> curr) {
+    private TreeNode<T> fentyLean(TreeNode<T> node, ListNode<T> curr) {
         if (curr != null) {
-            TreeNode newNode = new TreeNode(new TreeNode(curr.data), null, new TreeNode(curr.data));
-            newNode.left = fentyLean(newNode);
+            TreeNode<T> newNode = new TreeNode<T>(curr.data, new TreeNode<T>(curr.data),
+                                                  new TreeNode<T>(curr.data),
+                                                  new TreeNode<T>(curr.data));
             curr = curr.next;
+            newNode.left = fentyLean(newNode.left, curr);
+            newNode.middle = fentyLean(newNode.middle, curr);
+            newNode.right = fentyLean(newNode.right, curr);
             return newNode;
+        } else {
+            return null;
         }
     }
 
+    /*
+     * Turns the ternary jit into a jit.
+     */
     public void leanFenty() {
         if (!jat) {
             throw new IllegalStateException("Not jat");
@@ -87,6 +96,10 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * "M'jacks" the jit by reversing it.
      */
     public void mjacking() {
+        if (jat) {
+            throw new IllegalStateException("jat");
+        }
+
         ListNode<T> reversing = null;
         ListNode<T> curr = front;
         while (curr != null) {
@@ -102,6 +115,7 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * Returns the number of elements in Jit.
      */
     public int size() {
+        // TODO implement this if jat
         int size = 0;
         ListNode<T> curr = front;
         while(curr != null) {
@@ -127,20 +141,59 @@ public class Jit<T> implements Comparable<Jit<T>> {
             return result + "]";
         } else {
             return toString(overallRoot);
+            // return "\nfented";
         }
     }
 
-    private String toString(TreeNode root) {
-        if (root == null) {
+    private String toString(TreeNode<T> node) {
+        if (node == null) {
+            // String result = "\t";
+            // for (int i = 0; i < level; i ++) {
+            //     result += "\t";
+            // }
             return "null";
-        } else if (root.left == null && root.right == null) {
-            return "[" + root.data + "]";
+            // return "null";
         } else {
-            return "[" + root.data + " "
-                + toString(root.left) + " "
-                + toString(root.right) + "]";
+            // System.out.println(node.data);
+            // System.out.println();
+            // if (node.left != null) {
+            //     System.out.print(node.left.data + " ");
+            // }
+            // if (node.middle != null) {
+            //     System.out.print(node.middle.data + " ");
+            // }
+            // if (node.right != null) {
+            //     System.out.print(node.right.data + " ");
+            // }
+
+            // toString(node.left);
+            // toString(node.middle);
+            // toString(node.right);
+            // System.out.println();
+            String result = "";
+            // 4
+            // 3 3 3
+            // 2 2 2 2 2 2 2 2 2
+            
+            result += node.data;
+
+            result += "\t" + toString(node.left);
+            result += "\t" + toString(node.middle);
+            // if (indented) {
+            //     result += "\t";
+            // }
+            result += "\t" + toString(node.right) + "\n";
+            // if (indented) {
+            //     result += "\t";
+            // }
+            return result;
         }
     }
+
+    // 2    1   null null null
+    //      1   null null null
+    //      1   null null null
+    //
 
     /**
      * Compares this Jit to another Jit. Returns -1 if this is smaller, 0 if they are equal, and 1
@@ -187,17 +240,19 @@ public class Jit<T> implements Comparable<Jit<T>> {
     public static class TreeNode<T2> {
         public T2 data;
         public TreeNode<T2> left;
+        public TreeNode<T2> middle;
         public TreeNode<T2> right;
 
         // Constructs a leaf node with the given data.
         public TreeNode(T2 data) {
-            this(data, null, null);
+            this(data, null, null, null);
         }
 
         // Constructs a leaf or branch node with the given data and links.
-        public TreeNode(T2 data, TreeNode left, TreeNode right) {
+        public TreeNode(T2 data, TreeNode<T2> left, TreeNode<T2> middle, TreeNode<T2> right) {
             this.data = data;
             this.left = left;
+            this.middle = middle;
             this.right = right;
         }
   }

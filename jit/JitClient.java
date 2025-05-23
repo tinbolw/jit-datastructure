@@ -18,7 +18,9 @@ public class JitClient {
         jit.mjacking();
         System.out.println("jit: " + jit);
         
+        System.out.println("fent it.");
         jit.fentyLean();
-        System.out.println("fented: " + jit);
+        System.out.println("fented: ");
+        System.out.println(jit);
     }
 }
