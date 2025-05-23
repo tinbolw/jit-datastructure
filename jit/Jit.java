@@ -53,11 +53,34 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * Converts the Jit into a ternary tree.
      */
     public void fentyLean() {
-        overallRoot = 
+        if (jat) {
+            throw new IllegalStateException("Jat");
+        }
+
+        overallRoot = fentyLean(overallRoot, front);
+        jat = true;
     }
 
-    private void fentyLean() {
-        
+    /*
+     * Somehow turn LinkedList into ternary Tree
+     * 1 -> 2 -> 3 -> 4 -> null;
+     */
+    private TreeNode fentyLean(TreeNode node, ListNode<T> curr) {
+        if (curr != null) {
+            TreeNode newNode = new TreeNode(new TreeNode(curr.data), null, new TreeNode(curr.data));
+            newNode.left = fentyLean(newNode);
+            curr = curr.next;
+            return newNode;
+        }
+    }
+
+    public void leanFenty() {
+        if (!jat) {
+            throw new IllegalStateException("Not jat");
+        }
+
+        jat = false;
+        overallRoot = null;
     }
 
     /**
@@ -90,17 +113,33 @@ public class Jit<T> implements Comparable<Jit<T>> {
 
     @Override
     public String toString() {
-        String result = "[";
-        ListNode<T> curr = front;
-        if (curr != null) {
-            while (curr.next != null) {
-                result += curr.data + ", ";
-                curr = curr.next;
+        if (!jat) {
+            String result = "[";
+            ListNode<T> curr = front;
+            if (curr != null) {
+                while (curr.next != null) {
+                    result += curr.data + ", ";
+                    curr = curr.next;
+                }
+                result += curr.data;
             }
-            result += curr.data;
-        }
 
-        return result + "]";
+            return result + "]";
+        } else {
+            return toString(overallRoot);
+        }
+    }
+
+    private String toString(TreeNode root) {
+        if (root == null) {
+            return "null";
+        } else if (root.left == null && root.right == null) {
+            return "[" + root.data + "]";
+        } else {
+            return "[" + root.data + " "
+                + toString(root.left) + " "
+                + toString(root.right) + "]";
+        }
     }
 
     /**
@@ -156,7 +195,7 @@ public class Jit<T> implements Comparable<Jit<T>> {
         }
 
         // Constructs a leaf or branch node with the given data and links.
-        public TreeNode(int data, TreeNode left, TreeNode right) {
+        public TreeNode(T2 data, TreeNode left, TreeNode right) {
             this.data = data;
             this.left = left;
             this.right = right;
