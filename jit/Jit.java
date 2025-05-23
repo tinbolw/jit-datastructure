@@ -5,12 +5,15 @@ package jit;
  */
 public class Jit<T> implements Comparable<Jit<T>> {
     private ListNode<T> front;
+    private boolean jat;
+    private 
 
     /**
      * Creates an empty Jit.
      */
     public Jit() {
         front = null;
+        jat = false;
     }
 
     /**
@@ -33,7 +36,7 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * Quick exit out of program
      * @param bonus
      */
-    public void jit(String bonus) {
+    public void jit(Jit<T> jit) {
         String[][] stack = new String[Integer.MAX_VALUE][Integer.MAX_VALUE];
         throw new StackOverflowError("You weren't supposed to make it this far");
     }
@@ -42,6 +45,13 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * Do something.
      */
     public void jmay() {
+
+    }
+
+    /*
+     * Converts the Jit into a ternary tree.
+     */
+    public void fentyLean() {
 
     }
 
@@ -129,4 +139,22 @@ public class Jit<T> implements Comparable<Jit<T>> {
             this(data, null);
         }
     }
+
+    public static class TreeNode<T2> {
+        public T2 data;
+        public TreeNode<T2> left;
+        public TreeNode<T2> right;
+
+        // Constructs a leaf node with the given data.
+        public TreeNode(T2 data) {
+            this(data, null, null);
+        }
+
+        // Constructs a leaf or branch node with the given data and links.
+        public TreeNode(int data, TreeNode left, TreeNode right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+  }
 }
