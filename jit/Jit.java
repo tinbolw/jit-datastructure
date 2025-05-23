@@ -6,7 +6,7 @@ package jit;
 public class Jit<T> implements Comparable<Jit<T>> {
     private ListNode<T> front;
     private boolean jat;
-    private 
+    private TreeNode overallRoot;
 
     /**
      * Creates an empty Jit.
@@ -14,6 +14,7 @@ public class Jit<T> implements Comparable<Jit<T>> {
     public Jit() {
         front = null;
         jat = false;
+        overallRoot = null;
     }
 
     /**
@@ -52,7 +53,11 @@ public class Jit<T> implements Comparable<Jit<T>> {
      * Converts the Jit into a ternary tree.
      */
     public void fentyLean() {
+        overallRoot = 
+    }
 
+    private void fentyLean() {
+        
     }
 
     /**
